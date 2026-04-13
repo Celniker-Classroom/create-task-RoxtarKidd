@@ -1,13 +1,26 @@
+<!-- My Create Project is a choose  your own adventure game.
+ When you open the website, you will enter your name and hit play.
+ Over the course of the game, a story will be told and you will have to make decisions.
+ You will obtain collectables along the way (Stored in a list) and, at the end of the game,
+ you will be told which you got and how many you have left to find.
+ Using a loop feature, you will start the story over and have to try to find the other collectables. -->
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Home</title>
+    <title>Choose Your Own Adventrue</title>
     <script src="script.js" defer></script>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>Your html goes here...</h1>
-    <br>See the <a href="README.md">README</a> for project details
+
+<h1 id = title>Choose Your Own Adventure</h1>
+<h2 id = header>Enter Your Name</h2>
+<input type="text" id = "name" placeholder = "Enter your name here">
+<button id=nameBtn>Save Your Name</button>
+<br><br>
+<button id = startBtn>Start</button>
 </body>
 </html>

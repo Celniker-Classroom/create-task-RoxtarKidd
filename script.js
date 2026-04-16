@@ -14,12 +14,35 @@ function chest() {
     document.getElementById("c2").textContent = "Leave it Alone";
 
     // Set up the "Open" button (c1)
-    document.getElementById("c1").onclick = function() {
+    document.getElementById("c1").addEventListener("click", function() {
         let item;
         if (choice === "water") {
-            item = waterChestItems[Math.floor(Math.random() * waterChestItems.length)];
-        } else if (choice === "fire") {
-            item = fireChestItems[Math.floor(Math.random() * fireChestItems.length)];
+            itemNumber = Math.floor(Math.random() * waterChestItems.length);
+            for (let i = 0; i < waterChestItems.length; i++) {
+            if (i === itemNumber) {
+                item = waterChestItems[i];
+                break;
+            }
+        }
+            choice  = null;
+            document.getElementById("c1").disabled = true;
+            document.getElementById("c2").disabled = true;
+            document.getElementById("c1").textContent = "Coming Soon";
+            document.getElementById("c2").textContent = "Coming Soon";
+        }
+        else if (choice === "fire") {
+            itemNumber = Math.floor(Math.random() * fireChestItems.length);
+            for (let i = 0; i < fireChestItems.length; i++) {
+                if (i === itemNumber) {
+                    item = fireChestItems[i];
+                    break;
+                }
+            }
+            choice = null;
+            document.getElementById("c1").disabled = true;
+            document.getElementById("c2").disabled = true;
+            document.getElementById("c1").textContent = "Coming Soon";
+            document.getElementById("c2").textContent = "Coming Soon";
         }
         
         actions.push("Opened the Chest and found " + item);
@@ -28,29 +51,17 @@ function chest() {
         document.getElementById("inventory").textContent = inventory.join(", ");
         document.getElementById("storyTxt").textContent = "You opened the chest and found: " + item + "! Your adventure will continue soon...";
 
-    };
-
-    document.getElementById("c2").onclick = function() {
+    });
+    document.getElementById("c2").addEventListener("click", function() {
     
-    for (let i = 0; i < 3; i++) {
-        if (i === 0) {
-            nagging = "Nah, you should open it! ";
-        }
-        if (i === 1) {
-            nagging = "Are you sure?";
-        }
-        else if (i > 1) {
-            nagging = "Are you sure? "+ "x" + i;
-        }
-        document.getElementById("storyTxt").textContent = nagging;
-    }
-    
-    document.getElementById("storyTxt").textContent = nagging;
-    actions.push("Tried to leave, but was nagged");
-    document.getElementById("yourActions").textContent = actions.join(", ");
-document.getElementById("c1").disabled = true;
-document.getElementById("c2").disabled = true;
-};
+        actions.push("Left the Chest Alone");
+        document.getElementById("yourActions").textContent = actions.join(", ");
+        document.getElementById("storyTxt").textContent = "You decided to leave the chest alone. Your adventure will continue soon...";
+        document.getElementById("c1").disabled = true;
+        document.getElementById("c2").disabled = true;
+        document.getElementById("c1").textContent = "Coming Soon";
+        document.getElementById("c2").textContent = "Coming Soon";
+    });
 }
 
 // Name Logic

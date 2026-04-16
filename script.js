@@ -3,7 +3,7 @@ let choice = 0;
 let actions = []; 
 let inventory = [];
 let nagging = null;
-i = 0;
+chestItemsReceieved = [];
 
 let waterChestItems = ["Water Staff", "Mermaid's Tear", "Aqua Shield", "Tidal Wave Amulet", "Coral Crown"];
 let fireChestItems = ["Flaming Sword", "Phoenix Feather", "Dragon Scale Armor", "Fire Gem", "Lava Boots"];
@@ -14,44 +14,61 @@ function chest() {
     document.getElementById("c2").textContent = "Leave it Alone";
 
     // Set up the "Open" button (c1)
+    if (choice === "water" || choice === "fire") {
+    document.getElementById("c1").removeEventListener("click", function() {});
+    document.getElementById("c2").removeEventListener("click", function() {});
     document.getElementById("c1").addEventListener("click", function() {
         let item;
         if (choice === "water") {
-            itemNumber = Math.floor(Math.random() * waterChestItems.length);
-            for (let i = 0; i < waterChestItems.length; i++) {
-            if (i === itemNumber) {
-                item = waterChestItems[i];
-                break;
+            for (i=0; i<3; i++) {
+            item = waterChestItems[Math.floor(Math.random() * waterChestItems.length)];
+                if (i === 2) {
+                chestItemsReceieved.push("and " + item);
+                }
+                else {
+                chestItemsReceieved.push(item);
+                }
+                inventory.push(item);
+                sliceIndex = waterChestItems.indexOf(item);
+                waterChestItems.splice(sliceIndex, 1);
             }
-        }
             choice  = null;
             document.getElementById("c1").disabled = true;
             document.getElementById("c2").disabled = true;
             document.getElementById("c1").textContent = "Coming Soon";
             document.getElementById("c2").textContent = "Coming Soon";
+            actions.push("Opened the Water Chest and found " + chestItemsReceieved.join(", "));
         }
         else if (choice === "fire") {
-            itemNumber = Math.floor(Math.random() * fireChestItems.length);
-            for (let i = 0; i < fireChestItems.length; i++) {
-                if (i === itemNumber) {
-                    item = fireChestItems[i];
-                    break;
+            for (i=0; i<3; i++) {
+            item = fireChestItems[Math.floor(Math.random() * fireChestItems.length)];
+                if (i === 2) {
+                chestItemsReceieved.push("and " + item);
                 }
+                else {
+                chestItemsReceieved.push(item);
+                }
+                inventory.push(item);
+                sliceIndex = fireChestItems.indexOf(item);
+                fireChestItems.splice(sliceIndex, 1);
             }
             choice = null;
             document.getElementById("c1").disabled = true;
             document.getElementById("c2").disabled = true;
             document.getElementById("c1").textContent = "Coming Soon";
             document.getElementById("c2").textContent = "Coming Soon";
+            actions.push("Opened the Fire Chest and found " + chestItemsReceieved.join(", "));
         }
         
-        actions.push("Opened the Chest and found " + item);
         document.getElementById("yourActions").textContent = actions.join(", ");
-        inventory.push(item);
+        document.getElementById("storyTxt").textContent = "You opened the chest and found " + chestItemsReceieved.join(", ") + "! Your adventure will continue soon...";
         document.getElementById("inventory").textContent = inventory.join(", ");
-        document.getElementById("storyTxt").textContent = "You opened the chest and found: " + item + "! Your adventure will continue soon...";
+
 
     });
+
+    }
+
     document.getElementById("c2").addEventListener("click", function() {
     
         actions.push("Left the Chest Alone");
@@ -69,6 +86,7 @@ document.getElementById("name").addEventListener("input", function() {
     playerName = this.value.trim();
     document.getElementById("nameBtn").disabled = (playerName === "");
 });
+
 
 document.getElementById("nameBtn").addEventListener("click", function() {
     playerName = playerName.charAt(0).toUpperCase() + playerName.slice(1).toLowerCase();

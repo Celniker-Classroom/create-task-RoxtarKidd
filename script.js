@@ -77,7 +77,6 @@ function chest() {
         document.getElementById("c1").textContent = "Coming Soon";
         document.getElementById("c2").textContent = "Coming Soon";
     });
-}
 
 // Name Logic
 document.getElementById("name").addEventListener("input", function() {

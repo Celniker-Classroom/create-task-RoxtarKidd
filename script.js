@@ -9,14 +9,12 @@ let waterChestItems = ["Water Staff", "Mermaid's Tear", "Aqua Shield", "Tidal Wa
 let fireChestItems = ["Flaming Sword", "Phoenix Feather", "Dragon Scale Armor", "Fire Gem", "Lava Boots"];
 
 function chest() {
-    // Change button text to represent the chest interaction
-    document.getElementById("c1").textContent = "Open the Chest";
-    document.getElementById("c2").textContent = "Leave it Alone";
-
-    // Set up the "Open" button (c1)
+    
     if (choice === "water" || choice === "fire") {
-    document.getElementById("c1").removeEventListener("click", function() {});
-    document.getElementById("c2").removeEventListener("click", function() {});
+
+        document.getElementById("c1").textContent = "Open the Chest";
+        document.getElementById("c2").textContent = "Leave it Alone";
+    
     document.getElementById("c1").addEventListener("click", function() {
         let item;
         if (choice === "water") {

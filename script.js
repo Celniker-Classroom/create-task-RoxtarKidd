@@ -30,9 +30,11 @@ function chest(type) {
         let chestItems;
 
         if (type === "water") {
-            chestItems = waterChestItems;
-        } else {
-            chestItems = fireChestItems;
+        chestItems = [...waterChestItems];
+        }
+        
+        else {
+        chestItems = [...fireChestItems];
         }
 
         for (let i = 0; i < 3; i++) {

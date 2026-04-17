@@ -30,8 +30,8 @@ function setupInitialChoices() {
 
 function startGameFlow() {
     document.getElementById("storyTxt").textContent = "You find yourself in a forest. Go left or right?";
-    document.getElementById("yourActions").textContent = "Your Actions will appear here...";
-    document.getElementById("inventory").textContent = "Your Inventory will appear here...";
+    document.getElementById("yourActions").textContent = "Your actions will appear here...";
+    document.getElementById("inventory").textContent = "Your inventory will appear here...";
 
     let c1 = document.getElementById("c1");
     let c2 = document.getElementById("c2");

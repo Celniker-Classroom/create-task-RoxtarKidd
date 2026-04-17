@@ -16,6 +16,7 @@ function chest(type) {
     let c1 = document.getElementById("c1");
     let c2 = document.getElementById("c2");
 
+    // reset buttons (removes old event listeners)
     c1.replaceWith(c1.cloneNode(true));
     c2.replaceWith(c2.cloneNode(true));
 
@@ -27,49 +28,42 @@ function chest(type) {
 
     c1.addEventListener("click", function () {
 
-        let item;
+        let chestItems;
 
         if (type === "water") {
-            for (let i = 0; i < 3; i++) {
-                item = waterChestItems[Math.floor(Math.random() * waterChestItems.length)];
-
-                if (i === 2) {
-                    chestItemsReceived.push("and " + item);
-                } else {
-                    chestItemsReceived.push(item);
-                }
-
-                inventory.push(item);
-
-                let sliceIndex = waterChestItems.indexOf(item);
-                waterChestItems.splice(sliceIndex, 1);
-            }
-
-            actions.push("Opened the Water Chest and found " + chestItemsReceived.join(", "));
+            chestItems = waterChestItems;
+        } else {
+            chestItems = fireChestItems;
         }
 
-        else if (type === "fire") {
-            for (let i = 0; i < 3; i++) {
-                item = fireChestItems[Math.floor(Math.random() * fireChestItems.length)];
+        for (let i = 0; i < 3; i++) {
 
-                if (i === 2) {
-                    chestItemsReceived.push("and " + item);
-                } else {
-                    chestItemsReceived.push(item);
-                }
+            let randomIndex = Math.floor(Math.random() * chestItems.length);
+            let item = chestItems[randomIndex];
 
-                inventory.push(item);
-
-                let sliceIndex = fireChestItems.indexOf(item);
-                fireChestItems.splice(sliceIndex, 1);
+            if (i === 2) {
+                chestItemsReceived.push("and " + item);
+            } else {
+                chestItemsReceived.push(item);
             }
 
-            actions.push("Opened the Fire Chest and found " + chestItemsReceived.join(", "));
+            inventory.push(item);
+
+            chestItems.splice(randomIndex, 1);
         }
+
+        let chestName;
+        if (type === "water") {
+            chestName = "Water";
+        } else {
+            chestName = "Fire";
+        }
+
+        actions.push("Opened the " + chestName + " Chest and found " + chestItemsReceived.join(", "));
 
         document.getElementById("yourActions").textContent = actions.join(", ");
         document.getElementById("storyTxt").textContent =
-            "You opened the chest and found " + chestItemsReceived.join(", ") + "! Your adventure will continue soon...";
+        "You opened the chest and found " + chestItemsReceived.join(", ") + "! Your adventure will continue soon...";
         document.getElementById("inventory").textContent = inventory.join(", ");
 
         c1.disabled = true;
@@ -91,7 +85,6 @@ function chest(type) {
         c2.textContent = "Coming Soon";
     });
 }
-
 
 
 document.getElementById("name").addEventListener("input", function () {

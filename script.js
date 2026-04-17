@@ -32,7 +32,7 @@ function chest(type) {
         if (type === "water") {
         chestItems = [...waterChestItems];
         }
-        
+
         else {
         chestItems = [...fireChestItems];
         }
@@ -137,7 +137,7 @@ document.getElementById("c2").addEventListener("click", function () {
         actions.push("Went Right");
 
         document.getElementById("storyTxt").textContent =
-            "You entered a fiery cave. Oh look, a chest!";
+            "You entered the Underworld. Oh look, a chest!";
 
         chestType = chestTypes[1];
         chest(chestType);

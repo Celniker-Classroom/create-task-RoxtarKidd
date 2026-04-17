@@ -3,7 +3,7 @@ let actions = [];
 let inventory = [];
 let chestItemsReceived = [];
 let waterChestItems = ["Water Staff", "Mermaid's Tear", "Aqua Shield", "Tidal Wave Amulet", "Coral Crown"];
-let fireChestItems = ["Flaming Sword", "Phoenix Feather", "Dragon's Breath Potion'", "Fire Gem", "Lava Boots"];
+let fireChestItems = ["Flaming Sword", "Phoenix Feather", "Dragon's Breath Potion", "Fire Gem", "Lava Boots"];
 let chestTypes = ["water", "fire"];
 let chestType = null;
 

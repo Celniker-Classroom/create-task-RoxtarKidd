@@ -16,7 +16,6 @@ function chest(type) {
     let c1 = document.getElementById("c1");
     let c2 = document.getElementById("c2");
 
-    // reset buttons (removes old event listeners)
     c1.replaceWith(c1.cloneNode(true));
     c2.replaceWith(c2.cloneNode(true));
 

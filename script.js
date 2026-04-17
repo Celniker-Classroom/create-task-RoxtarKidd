@@ -105,8 +105,6 @@ document.getElementById("nameBtn").addEventListener("click", function () {
         "Welcome, " + playerName + "! Click the Start button to begin!";
 });
 
-
-
 document.getElementById("startBtn").addEventListener("click", function () {
     document.getElementById("c1").disabled = false;
     document.getElementById("c2").disabled = false;
@@ -119,8 +117,6 @@ document.getElementById("startBtn").addEventListener("click", function () {
 
     document.getElementById("startBtn").disabled = true;
 });
-
-
 
 document.getElementById("c1").addEventListener("click", function () {
     if (this.textContent === "Go Left") {

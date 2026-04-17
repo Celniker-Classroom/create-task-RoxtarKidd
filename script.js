@@ -2,12 +2,11 @@ let playerName = null;
 let actions = []; 
 let inventory = [];
 let chestItemsReceived = [];
-
+let waterChestItems = ["Water Staff", "Mermaid's Tear", "Aqua Shield", "Tidal Wave Amulet", "Coral Crown"];
+let fireChestItems = ["Flaming Sword", "Phoenix Feather", "Dragon Scale Armor", "Fire Gem", "Lava Boots"];
 let chestTypes = ["water", "fire"];
 let chestType = null;
 
-let waterChestItems = ["Water Staff", "Mermaid's Tear", "Aqua Shield", "Tidal Wave Amulet", "Coral Crown"];
-let fireChestItems = ["Flaming Sword", "Phoenix Feather", "Dragon Scale Armor", "Fire Gem", "Lava Boots"];
 
 function chest(type) {
 

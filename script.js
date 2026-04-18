@@ -1,11 +1,8 @@
 let playerName = null;
 let actions = [];
 let inventory = [];
-let chestItemsReceived = [];
 let waterChestItems = ["Water Staff", "Mermaid's Tear", "Aqua Shield", "Tidal Wave Amulet", "Coral Crown", "Siren's Song Scroll"];
 let fireChestItems = ["Flaming Sword", "Phoenix Feather", "Dragon's Breath Potion", "Fire Gem", "Lava Boots", "Inferno Cloak"];
-let chestTypes = ["water", "fire"];
-let chestType = null;
 
 function setupInitialChoices() {
     let c1 = document.getElementById("c1");
@@ -53,7 +50,9 @@ function startGameFlow() {
 }
 
 function chest(type) {
-    chestItemsReceived = [];
+
+    let chestItemsReceived = [];
+
     let c1 = document.getElementById("c1");
     let c2 = document.getElementById("c2");
 
@@ -142,9 +141,6 @@ document.getElementById("restartBtn").addEventListener("click", function () {
 
     actions = [];
     inventory = [];
-    chestItemsReceived = [];
-    chestType = null;
-
 
     document.getElementById("header").textContent = playerName + "'s Adventure";
     document.getElementById("yourActions").textContent = "";
@@ -152,5 +148,3 @@ document.getElementById("restartBtn").addEventListener("click", function () {
     document.getElementById("restartBtn").disabled = true;
     startGameFlow();
 });
-
-

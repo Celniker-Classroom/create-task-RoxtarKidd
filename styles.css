@@ -4,6 +4,13 @@
   font-style: normal;
 }
 
+#title {
+  font-size: 50px;
+  font-family: 'Sekuya', 'Times New Roman', serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 #storyTxt {
   font-size: 30px;
 }

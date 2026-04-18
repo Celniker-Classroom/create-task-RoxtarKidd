@@ -2,8 +2,8 @@ let playerName = null;
 let actions = [];
 let inventory = [];
 let chestItemsReceived = [];
-let waterChestItems = ["Water Staff", "Mermaid's Tear", "Aqua Shield", "Tidal Wave Amulet", "Coral Crown"];
-let fireChestItems = ["Flaming Sword", "Phoenix Feather", "Dragon's Breath Potion", "Fire Gem", "Lava Boots"];
+let waterChestItems = ["Water Staff", "Mermaid's Tear", "Aqua Shield", "Tidal Wave Amulet", "Coral Crown", "Siren's Song Scroll"];
+let fireChestItems = ["Flaming Sword", "Phoenix Feather", "Dragon's Breath Potion", "Fire Gem", "Lava Boots", "Inferno Cloak"];
 let chestTypes = ["water", "fire"];
 let chestType = null;
 
@@ -66,7 +66,14 @@ function chest(type) {
     c2.textContent = "Leave it Alone";
 
     c1.addEventListener("click", function () {
-        let chestItems = type === "water" ? [...waterChestItems] : [...fireChestItems];
+
+        let chestItems = [];
+
+        if (type === "water") {
+            chestItems = [...waterChestItems];
+        } else {
+            chestItems = [...fireChestItems];
+        }
 
         for (let i = 0; i < 3; i++) {
             let randomIndex = Math.floor(Math.random() * chestItems.length);
@@ -80,12 +87,13 @@ function chest(type) {
             chestItems.splice(randomIndex, 1);
         }
 
-        let chestName = type === "water" ? "Water" : "Fire";
+        let chestName = type.charAt(0).toUpperCase() + type.slice(1);
+
         actions.push("Opened the " + chestName + " Chest and found " + chestItemsReceived.join(", "));
 
         document.getElementById("yourActions").textContent = actions.join(", ");
         document.getElementById("storyTxt").textContent =
-            "You opened the chest and found " + chestItemsReceived.join(", ") + "! Your adventure will continue soon...";
+            "You opened the " + chestName + " Chest and found " + chestItemsReceived.join(", ") + "! Your adventure will continue soon...";
         document.getElementById("inventory").textContent = inventory.join(", ");
 
         c1.disabled = true;
@@ -141,9 +149,8 @@ document.getElementById("restartBtn").addEventListener("click", function () {
     document.getElementById("header").textContent = playerName + "'s Adventure";
     document.getElementById("yourActions").textContent = "";
     document.getElementById("inventory").textContent = "";
-
-    startGameFlow();
     document.getElementById("restartBtn").disabled = true;
+    startGameFlow();
 });
 
 

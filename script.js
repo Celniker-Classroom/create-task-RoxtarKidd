@@ -6,18 +6,10 @@ let fireChestItems = ["Flaming Sword", "Phoenix Feather", "Dragon's Breath Potio
 
 function chest(type) {
 
-    let chestItemsReceived = [];
-
     let c1 = document.getElementById("c1");
     let c2 = document.getElementById("c2");
+    let chestItemsReceived = [];
 
-    c1.replaceWith(c1.cloneNode(true));
-    c2.replaceWith(c2.cloneNode(true));
-    c1 = document.getElementById("c1");
-    c2 = document.getElementById("c2");
-
-    c1.textContent = "Open the Chest";
-    c2.textContent = "Leave it Alone";
 
     c1.addEventListener("click", function () {
 
@@ -78,6 +70,18 @@ function setupInitialChoices() {
         if (this.textContent === "Go Left") {
             actions.push("Went Left");
             document.getElementById("storyTxt").textContent = "You entered Atlantis. Oh look, a chest!";
+            
+            let c1 = document.getElementById("c1");
+            let c2 = document.getElementById("c2");
+
+            c1.replaceWith(c1.cloneNode(true));
+            c2.replaceWith(c2.cloneNode(true));
+            c1 = document.getElementById("c1");
+            c2 = document.getElementById("c2");
+
+            c1.textContent = "Open the Chest";
+            c2.textContent = "Leave it Alone";
+
             chest("water");
         }
     });
@@ -86,6 +90,18 @@ function setupInitialChoices() {
         if (this.textContent === "Go Right") {
             actions.push("Went Right");
             document.getElementById("storyTxt").textContent = "You entered the Underworld. Oh look, a chest!";
+
+            let c1 = document.getElementById("c1");
+            let c2 = document.getElementById("c2");
+
+            c1.replaceWith(c1.cloneNode(true));
+            c2.replaceWith(c2.cloneNode(true));
+            c1 = document.getElementById("c1");
+            c2 = document.getElementById("c2");
+
+            c1.textContent = "Open the Chest";
+            c2.textContent = "Leave it Alone";
+
             chest("fire");
         }
     });

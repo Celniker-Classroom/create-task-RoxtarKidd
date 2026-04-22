@@ -1,33 +1,74 @@
-.sekuya-regular {
-  font-family: "Sekuya", system-ui;
-  font-weight: 400;
-  font-style: normal;
+body { 
+    margin: 0; 
+    padding: 0; 
+    min-height: 100vh; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    /* Fixed the space after url and added a fallback color */
+    background: #222 url('image/CYOA-Background.jpg') no-repeat center / 100% 100%;
+    font-family: 'Times New Roman', serif; 
+}
+
+
+/* The "Float" Container */
+.game-container {
+    background: rgba(255, 255, 255, 0.9); /* Semi-transparent white */
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    width: 90%;
+    max-width: 600px;
+    text-align: center;
 }
 
 #title {
-  font-size: 50px;
-  font-family: 'Sekuya', 'Times New Roman', serif;
-  font-weight: 400;
-  font-style: normal;
+    font-family: 'Sekuya', serif;
+    font-size: 40px;
+    margin-top: 0;
+    color: #333;
 }
 
 #storyTxt {
-  font-size: 30px;
+    font-size: 24px;
+    margin: 20px 0;
+    min-height: 60px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+    transition: 0.3s;
+}
+
+button:hover:not(:disabled) {
+    background: #e0e0e0;
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 #choices {
-  margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
 }
 
-#header {
-  font-size: 30px;
-  font-family: 'Times New Roman', serif;
-  font-weight: normal;
+.info-section {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+    text-align: left;
 }
 
-#h2 {
-  font-size: 30px;
-  font-family: 'Sekuya', 'Times New Roman', serif;
-  font-weight: 400;
-  font-style: normal;
+.info-section h2 {
+    font-size: 18px;
+    margin-bottom: 5px;
 }

@@ -23,39 +23,36 @@ Functions will include animations,
 </head>
 
 <body>
+    <div class="game-container">
+        <h1 id="title">Choose Your Own Adventure</h1>
+        <h2 id="header">Enter Your Name</h2>
+        
+        <input type="text" id="name" placeholder="Enter your name here">
+        <button disabled id="nameBtn">Save Your Name</button>
+        <br><br>
+        
+        <button disabled id="startBtn">Start</button>
+        <button disabled id="restartBtn">Restart</button>
+        
+        <hr>
 
-    <h1 id="title">Choose Your Own Adventure</h1>
+        <div id="storyTxt">
+            <p>Story text will appear here...</p>
+        </div>
 
-    <h2 id="header">Enter Your Name</h2>
-    <input type="text" id="name" placeholder="Enter your name here">
-    <button disabled id="nameBtn">Save Your Name</button>
+        <div id="choices">
+            <button disabled id="c1">Choice 1</button>
+            <button disabled id="c2">Choice 2</button>
+        </div>
 
-    <br><br>
+        <div class="info-section">
+            <h2>Your Actions</h2>
+            <div id="yourActions">Your actions will appear here...</div>
+        </div>
 
-    <button disabled id="startBtn">Start</button>
-    <button disabled id="restartBtn">Restart</button>
-
-    <hr>
-
-
-    <div id = "gameArea"></div>
-    <div id = "storyTxt">
-        <p>Story text will appear here...</p>
+        <div class="info-section">
+            <h2>Inventory</h2>
+            <div id="inventory">Your inventory will appear here...</div>
+        </div>
     </div>
-
-    <div id="choices">
-        <button disabled id = "c1">Choice 1</button>
-        <button disabled id = "c2">Choice 2</button>
-    </div>
-
-    <h2>Your Actions</h2>
-    <div id = "yourActions">
-        <p>Your actions will appear here...</p>
-    </div>
-
-    <h2>Inventory</h2>
-    <div id = "inventory">
-        <p>Your inventory will appear here...</p>
-</div>
 </body>
-</html>

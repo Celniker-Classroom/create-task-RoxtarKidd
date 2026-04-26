@@ -13,7 +13,7 @@ function chest(type) {
         if (type === "water") {
             chestItems = [...waterChestItems];
         } else {
-            chestItems = [...fireChestItems];
+            chestItems = [...fireChestItems]; 
         }
         for (let i = 0; i < 3; i++) {
             let randomIndex = Math.floor(Math.random() * chestItems.length);

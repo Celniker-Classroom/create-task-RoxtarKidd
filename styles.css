@@ -5,8 +5,6 @@ body {
     display: flex; 
     justify-content: center; 
     align-items: center; 
-    /* Fixed the space after url and added a fallback color */
-    background: #222 url('image/CYOA-Background.jpg') no-repeat center / 100% 100%;
     font-family: 'Times New Roman', serif; 
 }
 

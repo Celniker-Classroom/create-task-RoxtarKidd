@@ -12,17 +12,31 @@ let waterChestOpened = false;
 let fireChestOpened = false;
 
 let state = "start";
+let victoryLeft = false;
+let victoryRight = false;
+
+let lastChestType = null;
 
 const buttonSound = new Audio('sound/start-game.mp3');
 const forestSound = new Audio('sound/forest.mp3');
 const fireSound = new Audio('sound/fire.mp3');
 const waterSound = new Audio('sound/atlantis.mp3');
+const waterDragonSound = new Audio('sound/waterDragonMusic.mp3');
+const fireDragonSound = new Audio('sound/fireDragonMusic.mp3');
+const chestSound = new Audio('sound/chest.mp3');
+const victorySound = new Audio('sound/victory.mp3');
+const menuMusic = new Audio('sound/Menu.mp3');
+const ultVictory = new Audio('sound/ultimateVictory.mp3')
+let menuMusicStarted = false;
 
 restartGameFlow();
 
 /* ---------------- CHEST ---------------- */
 
 function chest(type) {
+    lastChestType = type;
+
+    buttonSound.play();
     let { c1, c2 } = resetButtons();
 
     let isOpened = (type === "water") ? waterChestOpened : fireChestOpened;
@@ -30,12 +44,11 @@ function chest(type) {
     c1.textContent = "Open the Chest";
     c2.textContent = isOpened ? "Continue Your Journey!" : "Leave it Alone";
 
-    buttonSound.play();
-
     let chestItemsReceived =
         type === "water" ? waterChestItemsReceived : fireChestItemsReceived;
 
     c1.addEventListener("click", function () {
+        chestSound.play();
         c2.textContent = "Continue Your Journey!";
         if ((type === "water" && waterChestOpened) ||
             (type === "fire" && fireChestOpened)) {
@@ -96,7 +109,7 @@ function chest(type) {
 
             actions.push("Returned to the forest");
             document.getElementById("yourActions").textContent = actions.join(", ");
-
+            state = "leftAlone"
             setupInitialChoices();
             return;
         }
@@ -105,27 +118,54 @@ function chest(type) {
 
         let chestName = type.charAt(0).toUpperCase() + type.slice(1);
 
-        stopAllSounds();
-
-        area2(chestItemsReceived, chestName);
+        area2(chestName);
     });
 }
 
 /* ---------------- FOREST ---------------- */
 
 function setupInitialChoices() {
-    if (state !== "forest") return;
+    if (state !== "forest" && state !== "leftAlone") return;
 
     let { c1, c2 } = resetButtons();
-
-    document.getElementById("storyTxt").textContent =
-        "You find yourself in a mysterious forest. Two paths lie ahead. Which way do you go?";
 
     c1.textContent = "Go Left";
     c2.textContent = "Go Right";
 
+    if (state === "leftAlone") {
+        let chestName = lastChestType === "water" ? "Water" : "Fire";
+
+        document.getElementById("storyTxt").textContent =
+            "You left the " + chestName + " Chest and returned to the forest.";
+    }
+
+    else if (!victoryLeft && !victoryRight) {
+        document.getElementById("storyTxt").textContent =
+            "You find yourself in a mysterious forest. Two paths lie ahead. Which way do you go?";
+    }
+
+    else if (victoryLeft && !victoryRight) {
+        document.getElementById("storyTxt").textContent =
+            "You beat the Water Dragon and ran back to the forest. Go right?";
+    }
+
+    else if (!victoryLeft && victoryRight) {
+        document.getElementById("storyTxt").textContent =
+            "You beat the Fire Dragon and ran back to the forest. Go Left?";
+    }
+
+    if (victoryLeft) {
+        c1.textContent = "Water Dragon Defeated";
+        c1.disabled = true;
+    }
+    
+    if (victoryRight) {
+        c2.textContent = "Fire Dragon Defeated";
+        c2.disabled = true;
+    }
+
     c1.addEventListener("click", function () {
-        if (state !== "forest") return;
+        if (state !== "forest" && state !== "leftAlone") return;
 
         stopAllSounds();
         actions.push("Went Left");
@@ -140,13 +180,14 @@ function setupInitialChoices() {
         waterSound.loop = true;
         waterSound.volume = 0.25;
         waterSound.play();
-
+        c1.disabled = false;
+        c2.disabled = false;
         state = "waterChest";
         chest("water");
     });
 
     c2.addEventListener("click", function () {
-        if (state !== "forest") return;
+        if (state !== "forest" && state !== "leftAlone") return;
 
         stopAllSounds();
         actions.push("Went Right");
@@ -161,7 +202,8 @@ function setupInitialChoices() {
         fireSound.loop = true;
         fireSound.volume = 0.5;
         fireSound.play();
-
+        c1.disabled = false;
+        c2.disabled = false;
         state = "fireChest";
         chest("fire");
     });
@@ -171,6 +213,7 @@ function setupInitialChoices() {
 
 function startGameFlow() {
     document.getElementById("restartBtn").disabled = false;
+    document.getElementById("startBtn").disabled = true;
     stopAllSounds();
 
     forestSound.loop = true;
@@ -215,7 +258,6 @@ function restartGameFlow() {
 
     c1.disabled = true;
     c2.disabled = true;
-    
 
     c1.textContent = "Choice 1";
     c2.textContent = "Choice 2";
@@ -232,10 +274,22 @@ function restartGameFlow() {
 
     state = "start";
 
-    document.getElementById("name").value = "";
-    document.getElementById("name").disabled = false;
-    document.getElementById("nameBtn").disabled = true;
-    document.getElementById("restartBtn").disabled = true;
+    document.body.style.backgroundImage = "url('image/CYOA-Background.jpg')";
+    document.body.style.backgroundSize = "cover";
+
+    document.getElementById("header").textContent = "Enter your name here.";
+
+    let nameInput = document.getElementById("name");
+    let nameBtn = document.getElementById("nameBtn");
+    let startBtn = document.getElementById("startBtn");
+    let restartBtn = document.getElementById("restartBtn");
+
+    nameInput.value = "";
+    nameInput.disabled = false;
+
+    nameBtn.disabled = true;
+    startBtn.disabled = true;
+    restartBtn.disabled = true;
 }
 
 /* ---------------- UI ---------------- */
@@ -243,6 +297,14 @@ function restartGameFlow() {
 document.getElementById("name").addEventListener("input", function () {
     playerName = this.value.trim();
     document.getElementById("nameBtn").disabled = (playerName === "");
+
+    if (!menuMusicStarted && playerName.length > 0) {
+        menuMusicStarted = true;
+
+        menuMusic.loop = true;
+        menuMusic.volume = 0.5;
+        menuMusic.play();
+    }
 });
 
 document.getElementById("nameBtn").addEventListener("click", function () {
@@ -266,8 +328,25 @@ document.getElementById("restartBtn").addEventListener("click", restartGameFlow)
 
 /* ---------------- DRAGON ---------------- */
 
-function area2(items, dragonType) {
+function area2(dragonType) {
+    stopAllSounds();
+
     let { c1, c2 } = resetButtons();
+
+    c1.disabled = false;
+    c2.disabled = false;
+
+    if (dragonType === "Water") {
+        document.body.style.backgroundImage = "url('image/waterDragon.jpg')";
+        waterDragonSound.loop = true;
+        waterDragonSound.volume = 0.5;
+        waterDragonSound.play();
+    } else {
+        document.body.style.backgroundImage = "url('image/fireDragon.jpg')";
+        fireDragonSound.loop = true;
+        fireDragonSound.volume = 0.5;
+        fireDragonSound.play();
+    }
 
     document.getElementById("storyTxt").textContent =
         "You encounter a fierce " + dragonType + " Dragon!";
@@ -276,8 +355,37 @@ function area2(items, dragonType) {
     c2.textContent = "Run Away!";
 
     c1.addEventListener("click", function () {
+
+        victorySound.play();
+
         actions.push("You fought the Dragon and won!");
         document.getElementById("yourActions").textContent = actions.join(", ");
+
+        stopAllSounds();
+
+        state = "forest";
+
+        document.body.style.backgroundImage = "url('image/forest.jpg')";
+        document.body.style.backgroundSize = "100% 100%";
+
+        forestSound.loop = true;
+        forestSound.volume = 0.5;
+        forestSound.play();
+
+        document.getElementById("storyTxt").textContent =
+            "You ran back into the forest...";
+
+        if (dragonType === "Water") {
+            victoryLeft = true;
+        } else {
+            victoryRight = true;
+        }
+
+        setupInitialChoices();
+
+        if (victoryLeft && victoryRight) {
+            gameOver();
+        }
     });
 
     c2.addEventListener("click", function () {
@@ -289,7 +397,7 @@ function area2(items, dragonType) {
 /* ---------------- HELPERS ---------------- */
 
 function stopAllSounds() {
-    [buttonSound, fireSound, waterSound, forestSound].forEach(s => {
+    [fireSound, waterSound, forestSound, waterDragonSound, fireDragonSound, menuMusic].forEach(s => {
         s.pause();
         s.currentTime = 0;
     });
@@ -309,4 +417,29 @@ function resetButtons() {
         c1: document.getElementById("c1"),
         c2: document.getElementById("c2")
     };
+}
+
+function gameOver() {
+    stopAllSounds();
+    ultVictory.play();
+    document.body.style.backgroundImage = "url('image/victory.jpg')";
+    document.body.style.backgroundSize = "cover";
+
+    document.getElementById("storyTxt").textContent =
+        "You have defeated both dragons and achieved ultimate victory!";
+
+    document.getElementById("yourActions").textContent =
+        actions.join(", ");
+
+    document.getElementById("inventory").textContent =
+        inventory.join(", ");
+
+    let { c1, c2 } = resetButtons();
+
+    c1.textContent = "Victory Achieved!";
+    c2.textContent = "Victory Achieved!";
+    c1.disabled = true;
+    c2.disabled = true;
+    document.body.style.backgroundImage = "url('image/CYOA-Background.jpg')";
+    document.body.style.backgroundSize = "cover";
 }

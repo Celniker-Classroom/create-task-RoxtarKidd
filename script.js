@@ -122,7 +122,9 @@ function chest(type) {
     });
 }
 
-/* ---------------- FOREST ---------------- */
+/* ---------------- FOREST ----------------
+This sets up the "Go Left" and "Go Right" choices in the forest area, and depending on the state of the story,
+the storyTxt will be different.*/
 
 function setupInitialChoices() {
     if (state !== "forest" && state !== "leftAlone") return;
@@ -209,7 +211,9 @@ function setupInitialChoices() {
     });
 }
 
-/* ---------------- GAME FLOW ---------------- */
+/* ---------------- GAME FLOW ---------------- 
+This is the function that is called when the start button is hit.*/
+
 
 function startGameFlow() {
     document.getElementById("restartBtn").disabled = false;
@@ -237,6 +241,7 @@ function startGameFlow() {
     setupInitialChoices();
 }
 
+// This is the function that is called when the player hits the restart button.
 function restartGameFlow() {
     stopAllSounds();
 
@@ -292,7 +297,9 @@ function restartGameFlow() {
     restartBtn.disabled = true;
 }
 
-/* ---------------- UI ---------------- */
+/* ---------------- UI ---------------- 
+Nothing will happen until the player types something. Then the music will start playing and the "Save Name"
+button becomes enabled.*/
 
 document.getElementById("name").addEventListener("input", function () {
     playerName = this.value.trim();
@@ -326,7 +333,9 @@ document.getElementById("startBtn").addEventListener("click", startGameFlow);
 
 document.getElementById("restartBtn").addEventListener("click", restartGameFlow);
 
-/* ---------------- DRAGON ---------------- */
+/* ---------------- DRAGON ---------------- 
+This is the function that is called when the player continues their journey. There is a water dragon to fight
+as well as a fire dragon.*/
 
 function area2(dragonType) {
     stopAllSounds();
@@ -402,7 +411,7 @@ function stopAllSounds() {
         s.currentTime = 0;
     });
 }
-
+//This will reset all buttons so no duplicate event listeners are made.
 function resetButtons() {
     let oldC1 = document.getElementById("c1");
     let oldC2 = document.getElementById("c2");
@@ -418,7 +427,7 @@ function resetButtons() {
         c2: document.getElementById("c2")
     };
 }
-
+//When the player defeats both dragons, this function is called.
 function gameOver() {
     stopAllSounds();
     ultVictory.play();

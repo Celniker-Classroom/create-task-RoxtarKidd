@@ -243,6 +243,8 @@ function startGameFlow() {
 
 // This is the function that is called when the player hits the restart button.
 function restartGameFlow() {
+    victoryLeft = false;
+    victoryRight = false;
     stopAllSounds();
 
     document.body.style.backgroundImage = "url('image/CYOA-Background.jpg')";
@@ -451,4 +453,6 @@ function gameOver() {
     c2.disabled = true;
     document.body.style.backgroundImage = "url('image/CYOA-Background.jpg')";
     document.body.style.backgroundSize = "cover";
+    nameInput.value = "";
+    nameInput.disabled = false;
 }
